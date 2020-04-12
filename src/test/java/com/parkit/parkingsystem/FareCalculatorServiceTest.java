@@ -179,4 +179,19 @@ public class FareCalculatorServiceTest {
         ticket.setParkingSpot(parkingSpot);
         assertThrows(NullPointerException.class, () -> fareCalculatorService.calculateFare(ticket));
     }
+
+    @Tag("CalculatingFareForUnknownParkingType")
+    @DisplayName("Throw exception when parking type is not treated by FareCalculatorService")
+    @Test
+    public void givenUnknownParkingType_whenCalculatingFare_thenAnExceptionShouldBeThrown(){
+        Date inTime = new Date();
+        inTime.setTime( System.currentTimeMillis() - (  60 * 60 * 1000) );
+        Date outTime = new Date();
+        ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.UNKNOWN,false);
+
+        ticket.setInTime(inTime);
+        ticket.setOutTime(outTime);
+        ticket.setParkingSpot(parkingSpot);
+        assertThrows(IllegalArgumentException.class, () -> fareCalculatorService.calculateFare(ticket));
+    }
 }
