@@ -75,6 +75,23 @@ public class FareCalculatorServiceTest {
     }
 
     @Tag("CalculatingFareForCars")
+    @Tag("FreeParkingService")
+    @DisplayName("Free parking service for less than thirty minutes parking time")
+    @Test
+    public void givenTwentyNineMinutesParkingDuration_whenCalculatingCarFare_thenFareShouldBeEqualToZero(){
+        Date inTime = new Date();
+        inTime.setTime( System.currentTimeMillis() - (  29 * 60 * 1000) );
+        Date outTime = new Date();
+        ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR,false);
+
+        ticket.setInTime(inTime);
+        ticket.setOutTime(outTime);
+        ticket.setParkingSpot(parkingSpot);
+        fareCalculatorService.calculateFare(ticket);
+        assertEquals(0 , ticket.getPrice());
+    }
+
+    @Tag("CalculatingFareForCars")
     @DisplayName("Throw exception when inTime comes after OutTime")
     @Test
     public void givenInTimeAfterOutTime_whenCalculatingCarFare_thenAnExceptionShouldBeThrown(){
@@ -134,6 +151,23 @@ public class FareCalculatorServiceTest {
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
         assertEquals((0.75 * Fare.BIKE_RATE_PER_HOUR), ticket.getPrice() );
+    }
+
+    @Tag("CalculatingFareForBikes")
+    @Tag("FreeParkingService")
+    @DisplayName("Free parking service for less than thirty minutes parking time")
+    @Test
+    public void givenTwentyNineMinutesParkingDuration_whenCalculatingBikeFare_thenFareShouldBeEqualToZero(){
+        Date inTime = new Date();
+        inTime.setTime( System.currentTimeMillis() - (  29 * 60 * 1000) );
+        Date outTime = new Date();
+        ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE,false);
+
+        ticket.setInTime(inTime);
+        ticket.setOutTime(outTime);
+        ticket.setParkingSpot(parkingSpot);
+        fareCalculatorService.calculateFare(ticket);
+        assertEquals(0, ticket.getPrice() );
     }
 
     @Tag("CalculatingFareForBikes")
