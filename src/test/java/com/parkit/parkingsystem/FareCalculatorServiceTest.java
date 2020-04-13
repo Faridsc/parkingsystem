@@ -87,8 +87,25 @@ public class FareCalculatorServiceTest {
         ticket.setInTime(inTime);
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
-        fareCalculatorService.calculateFare(ticket);
+        fareCalculatorService.freeParkingService(ticket);
         assertEquals(0 , ticket.getPrice());
+    }
+
+    @Tag("CalculatingFareForCars")
+    @Tag("CalculatingFareForRecurringUsers")
+    @DisplayName("Recurring car users should pay ninety five percent of the total fare")
+    @Test
+    public void givenCarRecurringUser_whenCalculatingFare_thenFareShouldBeEqualToNinetyFivePercentOfTotalFare(){
+        Date inTime = new Date();
+        inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
+        Date outTime = new Date();
+        ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
+
+        ticket.setInTime(inTime);
+        ticket.setOutTime(outTime);
+        ticket.setParkingSpot(parkingSpot);
+        fareCalculatorService.calculateFareForRegularUsers(ticket);
+        assertEquals(1.425, ticket.getPrice());
     }
 
     @Tag("CalculatingFareForCars")
@@ -171,6 +188,23 @@ public class FareCalculatorServiceTest {
     }
 
     @Tag("CalculatingFareForBikes")
+    @Tag("CalculatingFareForRecurringUsers")
+    @DisplayName("Recurring bike users should pay ninety five percent of the total fare")
+    @Test
+    public void givenBikeRecurringUser_whenCalculatingBikeFare_thenFareShouldBeEqualToNinetyFivePercentOfTotalFare(){
+        Date inTime = new Date();
+        inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
+        Date outTime = new Date();
+        ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
+
+        ticket.setInTime(inTime);
+        ticket.setOutTime(outTime);
+        ticket.setParkingSpot(parkingSpot);
+        fareCalculatorService.calculateFareForRegularUsers(ticket);
+        assertEquals(0.95, ticket.getPrice());
+    }
+
+    @Tag("CalculatingFareForBikes")
     @DisplayName("Throw exception when inTime comes after OutTime")
     @Test
     public void givenInTimeAfterOutTime_whenCalculatingBikeFare_thenAnExceptionShouldBeThrown(){
@@ -227,5 +261,7 @@ public class FareCalculatorServiceTest {
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
         assertThrows(IllegalArgumentException.class, () -> fareCalculatorService.calculateFare(ticket));
+        assertThrows(IllegalArgumentException.class, () -> fareCalculatorService.calculateFareForRegularUsers(ticket));
     }
+
 }

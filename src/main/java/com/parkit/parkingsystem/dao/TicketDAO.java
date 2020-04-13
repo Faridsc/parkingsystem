@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 /**
@@ -28,7 +29,16 @@ public class TicketDAO {
     /**
      * instantiating DataBaseConfig.
      */
-    public DataBaseConfig dataBaseConfig = new DataBaseConfig();
+    private DataBaseConfig dataBaseConfig = new DataBaseConfig();
+
+    /**
+     * setter of the dataBaseConfig.
+     * used mainly in ParkingDataBaseIT.java
+     * @param dataBConfig
+     */
+    public void setDataBaseConfig(final DataBaseConfig dataBConfig) {
+        this.dataBaseConfig = dataBConfig;
+    }
 
     /**
      *  save tickets to database.
@@ -117,5 +127,35 @@ public class TicketDAO {
             dataBaseConfig.closeConnection(con);
         }
         return false;
+    }
+
+    /**
+     * Check if the incoming user had already used the parking.
+     * @param vehicleRegNumber the user's vehicle registration number
+     * to be compared to numbers that are saved in database
+     * @return 1 if the user had already used the parking
+     * 0 if no matching vehicle registration number  was found in database
+     */
+    public int getNumberOfTickets(final String vehicleRegNumber) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int numberOfTickets = 0;
+        try {
+            con = dataBaseConfig.getConnection();
+            ps = con.prepareStatement(DBConstants.GET_NUMBER_OF_TICKETS);
+            ps.setString(1, vehicleRegNumber);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                numberOfTickets = rs.getInt(1);
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            LOGGER.error("Error fetching next available slot", ex);
+        } finally {
+            dataBaseConfig.closeConnection(con);
+            dataBaseConfig.closePreparedStatement(ps);
+            dataBaseConfig.closeResultSet(rs);
+        }
+        return numberOfTickets;
     }
 }
