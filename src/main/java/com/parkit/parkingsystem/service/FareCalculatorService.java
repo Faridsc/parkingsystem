@@ -29,7 +29,7 @@ public class FareCalculatorService {
         switch (ticket.getParkingSpot().getParkingType()) {
             case CAR:
                 if (parkingDuration < freeService) {
-                    //free parking service for
+                    //free parking service for cars with
                     // less than 30 minutes parking duration
                     ticket.setPrice(0);
                 } else {
@@ -40,7 +40,7 @@ public class FareCalculatorService {
                 break;
             case BIKE:
                 if (parkingDuration < freeService) {
-                    //free parking service for
+                    //free parking service for bikes with
                     // less than 30 minutes parking duration
                     ticket.setPrice(0);
                 } else {
