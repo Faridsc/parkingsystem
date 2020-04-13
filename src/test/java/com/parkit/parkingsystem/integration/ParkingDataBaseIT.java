@@ -75,4 +75,28 @@ public class ParkingDataBaseIT {
         assertEquals(0.0, ticketDAO.getTicket("ABCDEF").getPrice());
     }
 
+    @DisplayName("Return 0 tickets for first time visitors")
+    @Test
+    public void givenNewUser_whenGettingNumberOfExistingTickets_thenItShouldReturnZero(){
+        ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+
+        parkingService.processIncomingVehicle();
+        final int existingTickets = ticketDAO.getNumberOfTickets("ABCDEF");
+
+        assertEquals(0, existingTickets);
+    }
+
+    @DisplayName("Return correct number of tickets for recurring users")
+    @Test
+    public void givenRecurringUser_whenGettingNumberOfExistingTickets_thenReturnCorrectValue() throws InterruptedException {
+        ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+
+        parkingService.processIncomingVehicle();
+        Thread.sleep(500);
+        parkingService.processExitingVehicle();
+        final int existingTickets = ticketDAO.getNumberOfTickets("ABCDEF");
+
+        assertEquals(1, existingTickets);
+    }
+
 }
