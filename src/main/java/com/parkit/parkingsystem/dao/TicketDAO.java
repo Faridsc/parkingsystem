@@ -28,7 +28,7 @@ public class TicketDAO {
     /**
      * instantiating DataBaseConfig.
      */
-    private DataBaseConfig dataBaseConfig = new DataBaseConfig();
+    public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
     /**
      *  save tickets to database.

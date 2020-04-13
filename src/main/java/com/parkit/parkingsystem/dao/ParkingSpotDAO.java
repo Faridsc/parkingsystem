@@ -25,7 +25,7 @@ public class ParkingSpotDAO {
     /**
      * dataBaseConfig object.
      */
-    private DataBaseConfig dataBaseConfig = new DataBaseConfig();
+    public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
     /**
      * checks whether there is an available parking slot or not.
