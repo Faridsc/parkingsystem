@@ -18,6 +18,13 @@ public class InputReaderUtil {
     private static Scanner scan = new Scanner(System.in);
 
     /**
+     * Setter of the inputReaderUtil scanner.
+     * @param scanner
+     */
+    public void setScan(final Scanner scanner) {
+        this.scan = scanner;
+    }
+    /**
      * InputReaderUtil logger.
      */
     private static final Logger LOGGER
@@ -31,7 +38,12 @@ public class InputReaderUtil {
     public int readSelection() {
         try {
             int input = Integer.parseInt(scan.nextLine());
-            return input;
+            if (input > 0 && input < 4) {
+                return input;
+            } else {
+                LOGGER.error("Error while reading user input from Shell");
+                return -1;
+            }
         } catch (Exception e) {
             LOGGER.error("Error while reading user input from Shell", e);
             System.out.println("Error reading input. "
@@ -60,6 +72,4 @@ public class InputReaderUtil {
             throw e;
         }
     }
-
-
 }

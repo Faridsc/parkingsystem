@@ -158,4 +158,36 @@ public class TicketDAO {
         }
         return numberOfTickets;
     }
+
+    /**
+     *  used mainly in processing the incoming vehicles.
+     *  compares the provided vehicle registration number
+     *  to the those of the other vehicles that are using the parking
+     *  at the sae time
+     * @param vehicleRegNumber the user's vehicle registration number
+     * @return 0 if no vehicle with the same regNumber found in the parking
+     * 1 if a parked vehicle with the same regNumber still using the parking
+     */
+    public int existingTicketWithNullOutTime(final String vehicleRegNumber) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int numberOfTickets = 0;
+        try {
+            con = dataBaseConfig.getConnection();
+            ps = con.prepareStatement(DBConstants.CHECK_VEHICLE_REG_NUMBER);
+            ps.setString(1, vehicleRegNumber);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                numberOfTickets = rs.getInt(1);
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            LOGGER.error("The entered vehicle registration number is actually in the parking", ex);
+        } finally {
+            dataBaseConfig.closeConnection(con);
+            dataBaseConfig.closePreparedStatement(ps);
+            dataBaseConfig.closeResultSet(rs);
+        }
+        return numberOfTickets;
+    }
 }
