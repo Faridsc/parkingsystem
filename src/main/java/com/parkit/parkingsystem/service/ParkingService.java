@@ -65,6 +65,10 @@ public class ParkingService {
             ParkingSpot parkingSpot = getNextParkingNumberIfAvailable();
             if (parkingSpot != null && parkingSpot.getId() > 0) {
                 String vehicleRegNumber = getVehicleRegNumber();
+                while (ticketDAO.existingTicketWithNullOutTime(vehicleRegNumber) > 0) {
+                    LOGGER.info("The inPut matches an existing vehicle");
+                    vehicleRegNumber = getVehicleRegNumber();
+                }
                 parkingSpot.setAvailable(false);
                 //allot this parking space and mark it's availability as false
                 parkingSpotDAO.updateParking(parkingSpot);
