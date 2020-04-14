@@ -8,14 +8,28 @@ import com.parkit.parkingsystem.integration.service.DataBasePrepareService;
 import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.util.InputReaderUtil;
-import org.junit.jupiter.api.*;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.DisplayName;
+
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import static org.mockito.Mockito.when;
 
+/**
+ * @author Yahia-CHERIFI
+ * this class contains ParkingDataBase integration tests
+ */
 @ExtendWith(MockitoExtension.class)
 public class ParkingDataBaseIT {
 
@@ -32,7 +46,7 @@ public class ParkingDataBaseIT {
     private ParkingSpot parkingSpot;
 
     @BeforeAll
-    private static void setUp() throws Exception{
+    private static void setUp() {
         parkingSpotDAO = new ParkingSpotDAO();
         parkingSpotDAO.setDataBaseConfig(dataBaseTestConfig);
         ticketDAO = new TicketDAO();
@@ -49,13 +63,13 @@ public class ParkingDataBaseIT {
     }
 
     @AfterAll
-    private static void tearDown(){
+    private static void tearDown() {
 
     }
 
     @DisplayName("The ParkingSystem should save tickets to DB and update parkingSpots with availability")
     @Test
-    public void givenAnIncomingVehicle_whenTheSystemProcessesIt_ThenTheAvailabilityOfTheParkingSpotShouldBeUpdatedAndATicketShouldBeSavedToDB(){
+    public void givenAnIncomingVehicle_whenTheSystemProcessesIt_ThenTheAvailabilityOfTheParkingSpotShouldBeUpdatedAndATicketShouldBeSavedToDB() {
         parkingService.processIncomingVehicle();
         //TODO: check that a ticket is actually saved in DB and Parking table is updated with availability
         assertNotNull(ticketDAO.getTicket("ABCDEF"));
@@ -77,7 +91,7 @@ public class ParkingDataBaseIT {
 
     @DisplayName("Return 0 tickets for first time visitors")
     @Test
-    public void givenNewUser_whenGettingNumberOfExistingTickets_thenItShouldReturnZero(){
+    public void givenNewUser_whenGettingNumberOfExistingTickets_thenItShouldReturnZero() {
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 
         parkingService.processIncomingVehicle();
