@@ -25,7 +25,16 @@ public class ParkingSpotDAO {
     /**
      * dataBaseConfig object.
      */
-    public DataBaseConfig dataBaseConfig = new DataBaseConfig();
+    private DataBaseConfig dataBaseConfig = new DataBaseConfig();
+
+    /**
+     * setter of the dataBaseConfig.
+     * used mainly in ParkingDataBaseIT.java
+     * @param dataBConfig
+     */
+    public void setDataBaseConfig(final DataBaseConfig dataBConfig) {
+        this.dataBaseConfig = dataBConfig;
+    }
 
     /**
      * checks whether there is an available parking slot or not.
