@@ -54,4 +54,12 @@ public final class DBConstants {
     public static final String GET_NUMBER_OF_TICKETS =
             "select count(*) as numberOfTickets from ticket "
                     + "where VEHICLE_REG_NUMBER=? and OUT_TIME is not null";
+
+    /**
+     * compare incoming vehicle registration number.
+     * to the vehicles that are using the parking
+     */
+    public static final String CHECK_VEHICLE_REG_NUMBER = "select count(*) "
+            + "as existingTicket from ticket"
+            + " where VEHICLE_REG_NUMBER=? and OUT_TIME is null";
 }

@@ -11,7 +11,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 /**
  * @author Yahia-CHERIFI
@@ -19,10 +22,10 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class DataBaseConfigTest {
 
-    DataBaseConfig dataBaseConfig;
+    private DataBaseConfig dataBaseConfig;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         dataBaseConfig = new DataBaseConfig();
     }
 
