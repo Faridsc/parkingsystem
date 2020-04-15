@@ -15,31 +15,31 @@ public class FareCalculatorService {
      * used to get convert the parking duration
      * from milliseconds to minutes
      */
-    private final int millisecondsPerMinute = 60000;
+    private static final int MILLISECONDS_PER_MINUTE = 60000;
 
     /**
      * number of minutes per hour.
      */
-    private final double minutesPerHour = 60;
+    private static final double MINUTES_PER_HOUR = 60;
 
     /**
      *number of minutes bellow which.
      * the free parking service is applied
      */
-    private final int freeService = 30;
+    private static final int FREE_SERVICE = 30;
 
     /**
      * One hundred percent.
      * it represents the percentage that will be paid
      * by all new users users
      */
-    private final int fareToBePaidByNewUsers = 100;
+    private static final int FARE_TO_BE_PAID_BY_NEW_USERS = 100;
 
     /**
      * 95%: it represents the percentage.
      * that will be paid by recurring users
      */
-    private final int fareToBePaidByRecurringUsers = 95;
+    private static final int FARE_TO_BE_PAID_BY_RECURRING_USERS = 95;
 
     /**
      * a method that checks whether the exit time is correct.
@@ -66,8 +66,8 @@ public class FareCalculatorService {
         //leaving hour
         long outHour = ticket.getOutTime().getTime();
         //converting parking duration from milliseconds to minutes
-        long parkingDuration = (outHour - inHour) / millisecondsPerMinute;
-        return parkingDuration;
+        return ((outHour - inHour) / MILLISECONDS_PER_MINUTE);
+
     }
 
     /**
@@ -76,7 +76,7 @@ public class FareCalculatorService {
      */
     public void freeParkingService(final Ticket ticket) {
         errorWhilePrecessingExitingVehicle(ticket);
-        if (calculateParkingDuration(ticket) < freeService) {
+        if (calculateParkingDuration(ticket) < FREE_SERVICE) {
             ticket.setPrice(0);
         }
     }
@@ -93,13 +93,13 @@ public class FareCalculatorService {
 
             case CAR:
                 ticket.setPrice(calculateParkingDuration(ticket)
-                        * (Fare.CAR_RATE_PER_HOUR / minutesPerHour));
+                        * (Fare.CAR_RATE_PER_HOUR / MINUTES_PER_HOUR));
                 freeParkingService(ticket);
                 break;
 
             case BIKE:
                 ticket.setPrice(calculateParkingDuration(ticket)
-                        * (Fare.BIKE_RATE_PER_HOUR / minutesPerHour));
+                        * (Fare.BIKE_RATE_PER_HOUR / MINUTES_PER_HOUR));
                 freeParkingService(ticket);
                 break;
 
@@ -118,16 +118,16 @@ public class FareCalculatorService {
         switch (ticket.getParkingSpot().getParkingType()) {
             case CAR:
                 ticket.setPrice(((calculateParkingDuration(ticket)
-                        * (Fare.CAR_RATE_PER_HOUR / minutesPerHour))
-                        * fareToBePaidByRecurringUsers)
-                        / fareToBePaidByNewUsers);
+                        * (Fare.CAR_RATE_PER_HOUR / MINUTES_PER_HOUR))
+                        * FARE_TO_BE_PAID_BY_RECURRING_USERS)
+                        / FARE_TO_BE_PAID_BY_NEW_USERS);
                 freeParkingService(ticket);
                 break;
             case BIKE:
                 ticket.setPrice(((calculateParkingDuration(ticket)
-                        * (Fare.BIKE_RATE_PER_HOUR / minutesPerHour))
-                        * fareToBePaidByRecurringUsers)
-                        / fareToBePaidByNewUsers);
+                        * (Fare.BIKE_RATE_PER_HOUR / MINUTES_PER_HOUR))
+                        * FARE_TO_BE_PAID_BY_RECURRING_USERS)
+                        / FARE_TO_BE_PAID_BY_NEW_USERS);
                 freeParkingService(ticket);
                 break;
             default: throw new IllegalArgumentException("Unknown Parking Type");

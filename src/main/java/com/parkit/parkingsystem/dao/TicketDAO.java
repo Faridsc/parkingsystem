@@ -32,6 +32,12 @@ public class TicketDAO {
     private DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
     /**
+     * Error message to be displayed.
+     */
+
+    private static final String ERROR_MESSAGE = "Error fetching next available slot";
+
+    /**
      * setter of the dataBaseConfig.
      * used mainly in ParkingDataBaseIT.java
      * @param dataBConfig
@@ -61,7 +67,7 @@ public class TicketDAO {
                     : (new Timestamp(ticket.getOutTime().getTime())));
             return ps.execute();
         } catch (Exception ex) {
-            LOGGER.error("Error fetching next available slot", ex);
+            LOGGER.error(ERROR_MESSAGE, ex);
         } finally {
             dataBaseConfig.closeConnection(con);
             dataBaseConfig.closePreparedStatement(ps);
@@ -97,7 +103,7 @@ public class TicketDAO {
                 ticket.setOutTime(rs.getTimestamp(5));
             }
         } catch (Exception ex) {
-            LOGGER.error("Error fetching next available slot", ex);
+            LOGGER.error(ERROR_MESSAGE, ex);
         } finally {
             dataBaseConfig.closeConnection(con);
             dataBaseConfig.closePreparedStatement(ps);
@@ -154,7 +160,7 @@ public class TicketDAO {
                 numberOfTickets = rs.getInt(1);
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            LOGGER.error("Error fetching next available slot", ex);
+            LOGGER.error(ERROR_MESSAGE, ex);
         } finally {
             dataBaseConfig.closeConnection(con);
             dataBaseConfig.closePreparedStatement(ps);
