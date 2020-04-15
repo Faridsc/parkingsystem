@@ -45,4 +45,21 @@ public final class DBConstants {
             + " from ticket t,parking p"
             + " where p.parking_number = t.parking_number and"
             + " t.VEHICLE_REG_NUMBER=? order by t.IN_TIME DESC limit 1";
+
+    /**
+     * sql query that is used to search for recurring tickets in database.
+     * used mainly to decide if the five percent
+     * discount feature will be applied or not
+     */
+    public static final String GET_NUMBER_OF_TICKETS =
+            "select count(*) as numberOfTickets from ticket "
+                    + "where VEHICLE_REG_NUMBER=? and OUT_TIME is not null";
+
+    /**
+     * compare incoming vehicle registration number.
+     * to the vehicles that are using the parking
+     */
+    public static final String CHECK_VEHICLE_REG_NUMBER = "select count(*) "
+            + "as existingTicket from ticket"
+            + " where VEHICLE_REG_NUMBER=? and OUT_TIME is null";
 }

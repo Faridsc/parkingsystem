@@ -12,11 +12,6 @@ import org.apache.logging.log4j.Logger;
  * @author Yahia-CHERIFI
  */
 public final class InteractiveShell {
-    /**
-     * Class constructor.
-     */
-    private InteractiveShell() {
-    }
 
     /**
      * InteractiveShell logger.
