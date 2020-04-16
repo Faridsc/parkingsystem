@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /**
- * this class establishes connections to database and closes them.
+ * this class establishes connection to database and closes them.
  * @author Yahia-CHERIFI
  */
 public class DataBaseConfig {
