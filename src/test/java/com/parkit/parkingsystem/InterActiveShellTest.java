@@ -25,7 +25,6 @@ public class InterActiveShellTest {
 
         interactiveShell.loadInterface();
 
-        assertTrue(outContent.toString().contains("Welcome to Parking System!"));
         assertTrue(outContent.toString().contains(
                 "Please select an option."
                         + "Simply enter the number to choose an action"));
