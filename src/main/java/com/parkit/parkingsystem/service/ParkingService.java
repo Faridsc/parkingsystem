@@ -108,7 +108,7 @@ public class ParkingService {
      * @throws IllegalArgumentException
      * if the provided vehicle reg number is incorrect or null
      */
-    private String getVehicleRegNumber() throws Exception {
+    private String getVehicleRegNumber() {
         LOGGER.info("Please type the vehicle "
                 + "registration number and press enter key");
         return inputReaderUtil.readVehicleRegistrationNumber();

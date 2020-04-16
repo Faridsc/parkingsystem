@@ -50,7 +50,7 @@ public class InputReaderUtil {
             }
         } catch (Exception e) {
             LOGGER.error(ERROR_MESSAGE, e);
-            System.out.println("Error reading input. "
+            LOGGER.error("Error reading input. "
                     + "Please enter valid number for proceeding further");
             return -1;
         }
@@ -61,7 +61,7 @@ public class InputReaderUtil {
      * @return String: the vehicle reg number if the provided value is correct
      * @throws Exception if the provided value is incorrect
      */
-    public String readVehicleRegistrationNumber() throws Exception {
+    public String readVehicleRegistrationNumber()  {
         try {
             String vehicleRegNumber = scan.nextLine();
             if (vehicleRegNumber == null
@@ -71,7 +71,7 @@ public class InputReaderUtil {
             return vehicleRegNumber;
         } catch (Exception e) {
             LOGGER.error(ERROR_MESSAGE, e);
-            System.out.println("Error reading input. Please enter "
+            LOGGER.error("Error reading input. Please enter "
                     + "a valid string for vehicle registration number");
             throw e;
         }
