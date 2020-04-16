@@ -27,7 +27,7 @@ public final class InteractiveShell {
      */
     public static void loadInterface() {
         LOGGER.info("App initialized!!!");
-        System.out.println("Welcome to Parking System!");
+        LOGGER.info("Welcome to Parking System!");
         final int i = 3;
         boolean continueApp = true;
         InputReaderUtil inputReaderUtil = new InputReaderUtil();
@@ -47,10 +47,10 @@ public final class InteractiveShell {
                     parkingService.processExitingVehicle();
                     break;
                 case i:
-                    System.out.println("Exiting from the system!");
+                    LOGGER.info("Exiting from the system!");
                     continueApp = false;
                     break;
-                default: System.out.println("Unsupported option."
+                default: LOGGER.error("Unsupported option."
                         + "Please enter a number corresponding"
                         + "to the provided menu");
             }
