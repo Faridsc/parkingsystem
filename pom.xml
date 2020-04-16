@@ -15,7 +15,7 @@
         <sonar.projectKey>yaya-ch_parkingsystem</sonar.projectKey>
         <sonar.organization>yaya-ch</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.login>8d3aa3cae64912448b750e266078764a875fd1f9</sonar.login>
+        <sonar.login>e93a878f13be6329ed67eb930c5b0364dc4c7f6c</sonar.login>
     </properties>
 
     <dependencies>
