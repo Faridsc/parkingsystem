@@ -15,8 +15,13 @@ public class InputReaderUtil {
     /**
      * allows users to provide their choices to the ParkingSystem.
      */
-    private static Scanner scan = new Scanner(System.in);
+    private Scanner scan = new Scanner(System.in);
 
+    /**
+     * error message to be displayed.
+     */
+    private static final String ERROR_MESSAGE
+            = "Error while reading user input from Shell";
     /**
      * Setter of the inputReaderUtil scanner.
      * @param scanner
@@ -41,12 +46,12 @@ public class InputReaderUtil {
             if (input > 0 && input < 4) {
                 return input;
             } else {
-                LOGGER.error("Error while reading user input from Shell");
+                LOGGER.error(ERROR_MESSAGE);
                 return -1;
             }
         } catch (Exception e) {
-            LOGGER.error("Error while reading user input from Shell", e);
-            System.out.println("Error reading input. "
+            LOGGER.error(ERROR_MESSAGE, e);
+            LOGGER.error("Error reading input. "
                     + "Please enter valid number for proceeding further");
             return -1;
         }
@@ -57,7 +62,7 @@ public class InputReaderUtil {
      * @return String: the vehicle reg number if the provided value is correct
      * @throws Exception if the provided value is incorrect
      */
-    public String readVehicleRegistrationNumber() throws Exception {
+    public String readVehicleRegistrationNumber()  {
         try {
             String vehicleRegNumber = scan.nextLine();
             if (vehicleRegNumber == null
@@ -66,8 +71,8 @@ public class InputReaderUtil {
             }
             return vehicleRegNumber;
         } catch (Exception e) {
-            LOGGER.error("Error while reading user input from Shell", e);
-            System.out.println("Error reading input. Please enter "
+            LOGGER.error(ERROR_MESSAGE, e);
+            LOGGER.error("Error reading input. Please enter "
                     + "a valid string for vehicle registration number");
             throw e;
         }
