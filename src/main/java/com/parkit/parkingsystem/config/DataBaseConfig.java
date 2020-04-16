@@ -26,9 +26,10 @@ public class DataBaseConfig {
     private static final Logger LOGGER = LogManager.getLogger("DataBaseConfig");
 
     /**
-     * credentials file path
+     * credentials file path.
      */
-    private static final String FILE_PATH = "src/main/resources/credentials.properties";
+    private static final String FILE_PATH
+            = "src/main/resources/credentials.properties";
 
     /**
      * mysql prod database url.
@@ -57,7 +58,7 @@ public class DataBaseConfig {
             throws ClassNotFoundException, SQLException {
         LOGGER.info("Create DB connection");
         Class.forName("com.mysql.cj.jdbc.Driver");
-        try (InputStream inputStream = new FileInputStream(FILE_PATH)){
+        try (InputStream inputStream = new FileInputStream(FILE_PATH)) {
             Properties properties = new Properties();
             properties.load(inputStream);
             url = properties.getProperty("prodUrl");

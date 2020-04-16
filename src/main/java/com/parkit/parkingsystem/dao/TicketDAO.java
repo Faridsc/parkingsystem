@@ -192,7 +192,8 @@ public class TicketDAO {
                 numberOfTickets = rs.getInt(1);
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            LOGGER.error("The entered vehicle registration number is actually in the parking", ex);
+            LOGGER.error("The entered vehicle registration"
+                    + " number is actually in the parking", ex);
         } finally {
             dataBaseConfig.closeConnection(con);
             dataBaseConfig.closePreparedStatement(ps);

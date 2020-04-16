@@ -19,6 +19,7 @@ public final class App {
      */
     private App() {
     }
+
     /**
      * The main method that stars the whole application.
      * @param args
