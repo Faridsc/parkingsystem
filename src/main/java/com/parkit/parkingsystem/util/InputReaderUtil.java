@@ -18,9 +18,10 @@ public class InputReaderUtil {
     private Scanner scan = new Scanner(System.in);
 
     /**
-     * error message to be displayed
+     * error message to be displayed.
      */
-    private static final String ERROR_MESSAGE = "Error while reading user input from Shell";
+    private static final String ERROR_MESSAGE
+            = "Error while reading user input from Shell";
     /**
      * Setter of the inputReaderUtil scanner.
      * @param scanner

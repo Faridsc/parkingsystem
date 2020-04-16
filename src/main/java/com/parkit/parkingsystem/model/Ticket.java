@@ -120,7 +120,7 @@ public class Ticket {
      * @param incomingTime the incoming time
      */
     public void setInTime(final Date incomingTime) {
-        if (incomingTime == null){
+        if (incomingTime == null) {
             this.inTime = null;
         } else {
             this.inTime = new Date(incomingTime.getTime());
