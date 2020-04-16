@@ -55,7 +55,7 @@ public class DataBaseTestConfig extends DataBaseConfig {
 
     public Connection getConnection()
             throws ClassNotFoundException, SQLException {
-        LOGGER.info("Create DB connection");
+        LOGGER.debug("Create DB connection");
         Class.forName("com.mysql.cj.jdbc.Driver");
         try (InputStream inputStream = new FileInputStream(FILE_PATH)){
             Properties properties = new Properties();
@@ -79,7 +79,7 @@ public class DataBaseTestConfig extends DataBaseConfig {
         if (con != null) {
             try {
                 con.close();
-                LOGGER.info("Closing DB connection");
+                LOGGER.debug("Closing DB connection");
             } catch (SQLException e) {
                 LOGGER.error("Error while closing connection", e);
             }
@@ -94,7 +94,7 @@ public class DataBaseTestConfig extends DataBaseConfig {
         if (ps != null) {
             try {
                 ps.close();
-                LOGGER.info("Closing Prepared Statement");
+                LOGGER.debug("Closing Prepared Statement");
             } catch (SQLException e) {
                 LOGGER.error("Error while closing prepared statement", e);
             }
@@ -109,7 +109,7 @@ public class DataBaseTestConfig extends DataBaseConfig {
         if (rs != null) {
             try {
                 rs.close();
-                LOGGER.info("Closing Result Set");
+                LOGGER.debug("Closing Result Set");
             } catch (SQLException e) {
                 LOGGER.error("Error while closing result set", e);
             }
